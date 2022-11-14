@@ -1,0 +1,35 @@
+# p : $t0
+# pultimo: $t1
+
+
+	.data
+	.eqv 	print_str, 4
+	.eqv 	print_char, 11
+	.eqv 	SIZE, 3
+
+str1:	.asciiz	"Array"
+str2:	.asciiz	"de"
+str3:	.asciiz "ponteiros"
+array:	.word str1,str2,str3
+
+	.text
+	.globl main
+	
+main:	la $t0, array	# $t0 = array = &(array[0])
+	li $t1, SIZE	#
+	sll $t1,$t1,2	#
+	add $t1,$t1,$t0	#$t1 = pultimo = array + SIZE
+	
+for:	bge $t0,$t1, endF	#for(p < pultimo)
+	lw $a0,0($t0)		#$a0 = *p
+	li $v0, print_str	#
+	syscall			#print_string(*p)
+				#
+	li $a0, '\n'		#	
+	li $v0, print_char	#
+	syscall			#print_char('\n')
+	
+	addi $t0,$t0,4		#p++
+	j for
+	
+endF: 	jr $ra

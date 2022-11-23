@@ -21,7 +21,7 @@ int main(void)
   lQueue<int> Q;
   int i = 0;
   int o = 0;
-  for(int n = 0;n < 1000000;n++)
+for(int n = 0;n < 1000000;n++)
   {
     if(Q.size() == 0 || (Q.size() < 20 && (rand() & 0x01000000) == 0))
     {

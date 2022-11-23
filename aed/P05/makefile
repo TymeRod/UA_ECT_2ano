@@ -28,6 +28,9 @@ sList_test:		sList_test.cpp sList.h
 lQueue_demo:		lQueue_demo.cpp lQueue.h
 	c++ -Wall -O2 lQueue_demo.cpp -o $@
 
+deque_demo:		deque_demo.cpp deque.h
+	c++ -Wall -O2 deque_demo.cpp -o $@
+
 solution_lQueue_demo:	solution_lQueue_demo.cpp lQueue.h
 	c++ -Wall -O2 solution_lQueue_demo.cpp -o $@
 

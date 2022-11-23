@@ -30,7 +30,7 @@ class aStack
       max_size = 0;
       cur_size = 0;
       data = nullptr;
-    }
+    } 
     void clear(void)
     {
       cur_size = 0;

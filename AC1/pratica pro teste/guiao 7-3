@@ -1,0 +1,140 @@
+	.data
+	
+	.eqv	STR_MAX_SIZE, 30
+	.eqv	print_string, 4
+	.eqv	print_int10, 1
+	
+str:	.asciiz	"I serodatupmoC ed arutetiuqrA"
+str1:	.space	31
+str2:	.asciiz	"\n"
+str3:	.asciiz	"String too long: "
+
+	.text
+	.globl main
+	
+strcpy:		li 	$t0, 0 		#i = 0
+
+do:		addu	$t1, $a0, $t0	#dst[i]	
+		addu	$t2, $a1, $t0	#src[i]
+
+		lb	$t3, 0($t2)	#src[i]
+		sb	$t3, 0($t1)	#dst[i] = src[i]
+	
+		bne	$t3, '\0', endDO
+		addi	$t0,$t0,1
+		j	do
+		
+endDO:		move	$v0, $a0
+		jr	$ra
+		
+#___________---------------__________________-----------------------___________---------------__________		
+		
+strrev:		addiu	$sp, $sp, -16
+		sw	$ra, 0($sp)
+		sw	$s0, 4($sp)
+		sw	$s1, 8($sp)
+		sw	$s2, 12($sp)
+	
+		move	$s0, $a0	#str
+		move	$s1, $a0	#p1
+		move	$s2, $a0	#p2
+					#
+while2:		lb	$t0, 0($s2)	#
+		beq	$t0, '\0', endW2	#while(*p2 != '\0')
+		addi	$s2, $s2, 1	#p2++
+		j	while2		#
+					#
+endW2:		addi	$s2,$s2,-1	#p2--
+					#
+while1:		bge	$s1, $s2, endW1	#while(p1 < p2)
+					#
+		move	$a0, $s1	#
+		move	$a1, $s2	#
+		jal 	exchange	#exchange(p1, p2)
+					#
+		addi	$s1, $s1, 1	#p1++
+		addi	$s2, $s2, -1	#p2--
+					#
+		j	while1		#
+					#
+endW1:		move	$v0, $s0	#return str
+					#
+		lw	$ra, 0($sp)	#
+		lw	$s0, 4($sp)	#
+		lw	$s1, 8($sp)	#
+		lw	$s2, 12($sp)	#
+		addiu	$sp, $sp, 16	#
+					#
+		jr 	$ra		#
+					#
+					#
+					#
+exchange:	lb	$t0, 0($a0)	# *c1
+		lb	$t1, 0($a1)	# *c2
+					#
+		sb	$t1, 0($a0)	# *c1 = *c2
+		sb	$t0, 0($a1)	# *c2 = *c1 
+					#
+		jr	$ra
+		
+#_____________________---------------------___________________________----------------------_______________
+
+strlen:		li	$v0, 0		#len = 0
+	
+while:		lb	$t1, 0($a0)	#*s
+		addiu	$a0, $a0, 1	#*s++
+		beq 	$t1, '\0', endW	#while(*s != '\0')
+		addi	$v0,$v0,1	#len++
+		j	while
+	
+endW:		jr	$ra
+
+#_______________------------___________________---------------------___________________________-------------
+
+main:		addiu	$sp,$sp,-4
+		sw	$ra, 0($sp)
+
+		la	$a0, str
+		jal 	strlen
+		
+if:		bgt	$v0, STR_MAX_SIZE, else
+		
+		la	$a0, str1
+		la	$a1, str
+		jal	strcpy
+		
+		move	$a0, $v0
+		li	$v0, print_string
+		syscall
+		
+		la	$a0, str2
+		li	$v0, print_string
+		syscall
+		
+		la	$a0, str1
+		jal	strrev
+		
+		move	$a0, $v0
+		li	$v0, print_string
+		syscall
+		
+		j	endIf
+	
+else:		la	$a0, str3
+		li	$v0, print_string
+		syscall
+		
+		la	$a0, str
+		jal	strlen
+		
+		move	$a0, $v0
+		li	$v0, print_int10
+		syscall
+		
+endIf:		jr 	$ra
+		
+		
+		
+		
+
+

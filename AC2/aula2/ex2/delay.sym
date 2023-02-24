@@ -1,0 +1,14 @@
+GAS LISTING delay.s 			page 1
+
+
+DEFINED SYMBOLS
+             delay.s:1      *ABS*:000000000000000b READ_CORE_TIMER
+             delay.s:2      *ABS*:000000000000000c RESET_CORE_TIMER
+             delay.s:3      *ABS*:0000000000000003 PUT_CHAR
+             delay.s:4      *ABS*:0000000000000006 PRINT_INT
+             delay.s:10     .text:0000000000000000 main
+             delay.s:11     .text:0000000000000004 while
+             delay.s:17     .text:000000000000000c while1
+             delay.s:21     .text:0000000000000030 endW
+
+NO UNDEFINED SYMBOLS

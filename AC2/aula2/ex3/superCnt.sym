@@ -1,0 +1,15 @@
+GAS LISTING superCnt.s 			page 1
+
+
+DEFINED SYMBOLS
+          superCnt.s:1      *ABS*:000000000000000b READ_CORE_TIMER
+          superCnt.s:2      *ABS*:000000000000000c RESET_CORE_TIMER
+          superCnt.s:3      *ABS*:0000000000000003 PUT_CHAR
+          superCnt.s:4      *ABS*:0000000000000006 PRINT_INT
+          superCnt.s:10     .text:0000000000000000 main
+          superCnt.s:13     .text:000000000000000c while
+          superCnt.s:19     .text:0000000000000014 while1
+          superCnt.s:37     .text:0000000000000054 while2
+          superCnt.s:57     .text:00000000000000a0 while3
+
+NO UNDEFINED SYMBOLS
